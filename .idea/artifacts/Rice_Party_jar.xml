@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Rice Party:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Rice_Party_jar</output-path>
+    <root id="archive" name="Rice Party.jar">
+      <element id="module-output" name="Rice Party" />
+    </root>
+  </artifact>
+</component>
