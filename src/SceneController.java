@@ -14,6 +14,7 @@ public class SceneController {
     private int score=0;
     private boolean movRight=true;
     private boolean dropping=false;
+    private boolean dead;
     private int activeRice[][];
     long timeDelay = 500;
 
@@ -21,15 +22,9 @@ public class SceneController {
         activeRice = new int[2][2];
         mFrame = new JFrame();
         mFrame.addMouseListener(new MouseAdapter() {
-            @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 dropping = true;
-                try {
-                    dropRice();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
             }
         });
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +34,7 @@ public class SceneController {
         mPane.setLayout(new GridLayout(6,5));
         mFrame.add(mPane);
 
-        ricePic = new ImageIcon("rice.png");
+        ricePic = new ImageIcon("src/rice.png");
         riceBoard = new JLabel[6][5];
         for(int x = 0;x<6;x++){
             for(int y = 0;y<5;y++){
@@ -59,24 +54,35 @@ public class SceneController {
 
     public void sim() throws InterruptedException {
         if(!dropping)movRice();
+        else {
+            dropRice();
+            setRiceTrue(riceBoard[5][2]);
+            setRiceFalse(riceBoard[activeRice[0][0]][activeRice[0][1]]);
+            setRiceInPlay(5, 2);
+        }
         Thread.sleep(timeDelay);
     }
 
     public void dropRice() throws InterruptedException {
-        for(int z=1;z<5;z++) {
-            int x=activeRice[0][0];
-            int y=activeRice[0][1];
+        for(int z = 4;z>0;z--) {
+            int x = activeRice[0][0];
+            int y = activeRice[0][1];
             setRiceTrue(riceBoard[z][y]);
             setRiceFalse(riceBoard[x][y]);
-            setRiceInPlay(z,y);
-            mPane.repaint();
+            setRiceInPlay(z, y);
             Thread.sleep(500);
         }
         if(activeRice[0][1]==activeRice[1][1]){
             score++;
             mFrame.setTitle("Score: "+score);
+            timeDelay-=10;
+        }else { //DEAD
+            timeDelay = 500;
+            score=0;
+            mFrame.setTitle("Score: "+score);
         }
         dropping = false;
+
     }
 
     public void movRice(){
@@ -122,6 +128,4 @@ public class SceneController {
         activeRice[1][0] = x;
         activeRice[1][1] = y;
     }
-
-
 }
