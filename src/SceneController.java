@@ -75,7 +75,7 @@ public class SceneController {
         if(activeRice[0][1]==activeRice[1][1]){
             score++;
             mFrame.setTitle("Score: "+score);
-            timeDelay-=10;
+            timeDelay-=17;
         }else { //DEAD
             timeDelay = 500;
             score=0;
