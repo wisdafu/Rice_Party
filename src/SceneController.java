@@ -56,9 +56,10 @@ public class SceneController {
         if(!dropping)movRice();
         else {
             dropRice();
-            setRiceTrue(riceBoard[5][2]);
+            int tempY = (int)(5*Math.random());
+            setRiceTrue(riceBoard[5][tempY]);
             setRiceFalse(riceBoard[activeRice[0][0]][activeRice[0][1]]);
-            setRiceInPlay(5, 2);
+            setRiceInPlay(5, tempY);
         }
         Thread.sleep(timeDelay);
     }
@@ -82,7 +83,6 @@ public class SceneController {
             mFrame.setTitle("Score: "+score);
         }
         dropping = false;
-
     }
 
     public void movRice(){
