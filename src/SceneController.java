@@ -52,7 +52,14 @@ public class SceneController {
         mFrame.setVisible(true);
     }
 
+    public void randoColor(){
+        double r=Math.random(),g=Math.random(),b=Math.random();
+        Color rando = new Color((float)r,(float)g,(float)b);
+        mPane.setBackground(rando);
+    }
+
     public void sim() throws InterruptedException {
+        randoColor();
         if(!dropping)movRice();
         else {
             dropRice();
